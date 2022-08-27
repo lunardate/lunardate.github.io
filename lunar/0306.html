@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>农历三月初六</title>
+</head>
+<body>
+  <fieldset>
+    <legend>农历三月初六</legend>
+    <div id="lunar0306"></div>
+  </fieldset>
+  <script crossorigin src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/pako@1.0.11/dist/pako_inflate.min.js"></script>
+  <script type="text/babel">
+    let data = null;
+
+    fetch('../database/all.json.zip')
+      .then(response => response.arrayBuffer())
+      .then(buffer => pako.inflate(buffer))
+      .then(inflated => new TextDecoder('utf-8').decode(inflated))
+      .then(json => JSON.parse(json))
+      .then(_data => data = _data)
+      .then(() => {
+        ReactDOM.render(<Lunar0306 />, document.querySelector('#lunar0306'));
+      });
+
+    function Lunar0306() {
+      const now = new Date();
+      const [message, setMessage] = React.useState('');
+
+      React.useEffect(() => {
+        displayLunarMessage(now.getFullYear(), 3, 6);
+      });
+
+      function displayLunarMessage(year, month, date) {
+        Promise.resolve(data)
+          .then(data => {
+            return data.find(item => {
+              if(_year === 2022 && _month === 3 && _date === date) {
+                return item;
+              }
+            });
+          })
+          .then(result => {
+            if(result) {
+              const { gregorian, zodiac, day } = result;
+              setMessage(`Gregorian Calendar Date: ${ gregorian.month }/${ gregorian.date }/${ gregorian.year }`);
+            } else {
+              setMessage(`Date not found!`);
+            }
+          })
+          .catch(err => {
+            console.error(err);
+            setMessage(`${ err.message }`);
+          });
+      }
+
+      return (
+        <div>
+          <div>
+            {
+              message && <span>{ message }</span>
+            }
+          </div>
+        </div>
+      );
+    }
+  </script>
+</body>
+</html>
