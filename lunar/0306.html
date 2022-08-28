@@ -53,7 +53,7 @@
               if(_year === year && _month === month && _date === date) {
                 const { gregorian } = item;
                 let gregorianDate = `${ gregorian.month }/${ gregorian.date }/${ gregorian.year }`;
-                return <li>{gregorianDate}</li>;
+                return gregorianDate;
               }
             }))
             return items;
@@ -62,16 +62,22 @@
             if(result) {
               setDisplayResult(result);
             } else {
-              setDisplayResult([<li>`Dates not found!`</li>]);
+              setDisplayResult([`Dates not found!`]);
             }
           })
           .catch(err => {
             console.error(err);
-            setDisplayResult([<li>{ err.message }</li>]);
+            setDisplayResult([`${err.message}`]);
           });
       }
 
-      return (<div><ul>{displayResult}</ul></div>);
+      return (
+      <div>
+        <ul>
+          {displayResult.map(item => { <li>items</li> })}
+        </ul>
+      </div>
+      );
     }
   </script>
 </body>
