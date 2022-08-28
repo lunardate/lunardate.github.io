@@ -46,7 +46,7 @@
       function displayLunarMessage(year, month, date) {
         Promise.resolve(data)
           .then(data => {
-            let years = range(currentYear, currentYear + 10);
+            let years = range(currentYear, 2101);
             return years.map(year => data.find(item => {
               const { year: _year } = item.gregorian;
               const { month: _month, date: _date } = item.lunar;
