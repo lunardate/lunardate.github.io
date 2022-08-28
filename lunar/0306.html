@@ -32,14 +32,16 @@
       const [message, setMessage] = React.useState('');
 
       React.useEffect(() => {
-        displayLunarMessage(now.getFullYear(), 3, 6);
+        displayLunarMessage(now.getFullYear(), '三月', "初六");
       });
 
       function displayLunarMessage(year, month, date) {
         Promise.resolve(data)
           .then(data => {
             return data.find(item => {
-              if(_year === 2022 && _month === 3 && _date === date) {
+              const { year: _year } = item.gregorian;
+              const { month: _month, date: _date } = item.lunar;
+              if(_year === year && _month === month && _date === date) {
                 return item;
               }
             });
