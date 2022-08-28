@@ -154,7 +154,7 @@
           .then(result => {
             if(result) {
               const { gregorian, zodiac, day } = result;
-              setMessage(`${ gregorian.month }${ gregorian.date }/${ gregorian.year }/`);
+              setMessage(`${ gregorian.month }/${ gregorian.date }/${ gregorian.year }`);
             } else {
               setMessage(`Notfound`);
             }
