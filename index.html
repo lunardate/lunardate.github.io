@@ -81,7 +81,7 @@
                 }
               </select>
             </label>
-            <br />
+            <br /><br />
             <span>Month: </span>
             <label>
               <select name="month" value={ month } onChange={ event => setMonth(+event.target.value) }>
@@ -92,7 +92,7 @@
                 }
               </select>
             </label>
-            <br />
+            <br /><br />
             <span>Day: </span>
             <label>
               <select name="date" value={ date } onChange={ event => setDate(+event.target.value) }>
@@ -108,7 +108,7 @@
           <br />
           <div>
             {
-              message && <span>Lunar Calendar Date: { message }</span>
+              message && <span>Lunar Calendar Date: <strong>{ message }</strong></span>
             }
           </div>
         </div>
@@ -178,7 +178,7 @@
                 }
               </select>
             </label>
-            <br/>
+            <br/><br />
             <span>Month: </span>
             <label>
               <select name="month" value={ month } onChange={ event => setMonth(event.target.value) }>
@@ -193,7 +193,7 @@
                 }
               </select>              
             </label>
-            <br />
+            <br /><br />
             <span>Day: </span>
             <label>
               <select name="date" value={ date } onChange={ event => setDate(event.target.value) }>
@@ -209,7 +209,7 @@
           <br />
           <div>
             {
-              message && <span>Gregorian Calendar Date (Month/Day/Year): { message }</span>
+              message && <span>Gregorian Calendar Date (Month/Day/Year): <strong>{ message }</strong></span>
             }
           </div>
         </div>
