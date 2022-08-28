@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>公历 转 农历</title>
+  <title>Gregorian-Lunar Date Converter</title>
 </head>
 <body>
   <fieldset>
-    <legend>公历转农历</legend>
+    <legend>Gregorian-to-Lunar</legend>
     <div id="gregorian-to-lunar"></div>
   </fieldset>
   <fieldset>
-    <legend>农历转公历</legend>
+    <legend>Lunar-to-Gregorian</legend>
     <div id="lunar-to-gregorian"></div>
   </fieldset>
   <script crossorigin src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
@@ -60,7 +60,7 @@
           })
           .then(result => {
             const { lunar, zodiac, day } = result;
-            setMessage(`农历 ${ lunar.year } ${ zodiac }年 ${ lunar.month }${ lunar.date }`);
+            setMessage(`${ lunar.year } ${ zodiac }年 ${ lunar.month }${ lunar.date }`);
           })
           .catch(err => {
             console.error(err);
@@ -71,41 +71,44 @@
       return (
         <div>
           <form onSubmit={ handleSubmit }>
+            <span>Year: </span>
             <label>
               <select name="year" value={ year } onChange={ event => setYear(+event.target.value) }>
                 {
                   Array.from({ length: 2100 - 1900 }).fill(undefined).map((_, index) => {
-                    return (<option value={ 2100 - index }>{ 2100 - index }年</option>);
+                    return (<option value={ 2100 - index }>{ 2100 - index }</option>);
                   })
                 }
               </select>
-              <span>年</span>
             </label>
+            <br />
+            <span>Month: </span>
             <label>
               <select name="month" value={ month } onChange={ event => setMonth(+event.target.value) }>
                 {
                   Array.from({ length: 12 }).fill(undefined).map((_, index) => {
-                    return (<option value={ index + 1 }>{ index + 1 }月</option>);
+                    return (<option value={ index + 1 }>{ index + 1 }</option>);
                   })
                 }
               </select>
-              <span>月</span>
             </label>
+            <br />
+            <span>Day: </span>
             <label>
               <select name="date" value={ date } onChange={ event => setDate(+event.target.value) }>
                 {
                   Array.from({ length: new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate() }).fill(undefined).map((_, index) => {
-                    return (<option value={ index + 1 }>{ index + 1 }日</option>);
+                    return (<option value={ index + 1 }>{ index + 1 }</option>);
                   })
                 }
               </select>
-              <span>日</span>
+              <br />
             </label>
           </form>
           <br />
           <div>
             {
-              message && <span>查询结果：{ message }</span>
+              message && <span>Lunar Calendar Date: { message }</span>
             }
           </div>
         </div>
@@ -151,9 +154,9 @@
           .then(result => {
             if(result) {
               const { gregorian, zodiac, day } = result;
-              setMessage(`公历 ${ gregorian.year }年 ${ gregorian.month }月 ${ gregorian.date }日`);
+              setMessage(`${ gregorian.month }${ gregorian.date }/${ gregorian.year }/`);
             } else {
-              setMessage(`没有此日期`);
+              setMessage(`Notfound`);
             }
           })
           .catch(err => {
@@ -165,6 +168,7 @@
       return (
         <div>
           <form onSubmit={ handleSubmit }>
+            <span>Year: </span>
             <label>
               <select name="year" value={ year } onChange={ event => setYear(+event.target.value) }>
                 {
@@ -173,8 +177,9 @@
                   })
                 }
               </select>
-              <span>年</span>
             </label>
+            <br/>
+            <span>Month: </span>
             <label>
               <select name="month" value={ month } onChange={ event => setMonth(event.target.value) }>
                 {
@@ -186,9 +191,10 @@
                     return (<option value={ month }>{ month }</option>);
                   })
                 }
-              </select>
-              <span>月</span>
+              </select>              
             </label>
+            <br />
+            <span>Day: </span>
             <label>
               <select name="date" value={ date } onChange={ event => setDate(event.target.value) }>
                 {
@@ -198,13 +204,12 @@
                   })
                 }
               </select>
-              <span>日</span>
             </label>
           </form>
           <br />
           <div>
             {
-              message && <span>查询结果：{ message }</span>
+              message && <span>Gregorian Calendar Date (Month/Day/Year): { message }</span>
             }
           </div>
         </div>
