@@ -29,7 +29,7 @@
 
     function Lunar0306() {
       const now = new Date();
-      const [displayResult, setDisplayResult] = React.useState('');
+      const [displayResult, setDisplayResult] = React.useState([]);
       const currentYear = now.getFullYear();
 
       React.useEffect(() => {
@@ -56,22 +56,22 @@
                 return <li>{gregorianDate}</li>;
               }
             }))
-            return (<ul> {items} </ul>);
+            return items;
           })
           .then(result => {
             if(result) {
               setDisplayResult(result);
             } else {
-              setDisplayResult(<span>Dates not found!</span>);
+              setDisplayResult([<li>`Dates not found!`</li>]);
             }
           })
           .catch(err => {
             console.error(err);
-            setDisplayResult(<span>{ err.message }</span>);
+            setDisplayResult([<li>{ err.message }</li>]);
           });
       }
 
-      return (<div> {displayResult} </div>);
+      return (<div><ul>{displayResult}</ul></div>);
     }
   </script>
 </body>
